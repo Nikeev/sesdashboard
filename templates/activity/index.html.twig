@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Activity{% endblock %}
+
+{% block h1 %}<h1>Activity</h1>{% endblock %}
+
+{% block body %}
+  {% if project %}
+    <div id="app"></div>
+  {% else %}
+    <div class="alert alert-info">No project created yet. <a href="{{ path('app_project_add') }}">Create new</a></div>
+  {% endif %}
+{% endblock %}
+
+  {% block stylesheets %}
+      {{ parent() }}
+
+      {{ encore_entry_link_tags('activity') }}
+  {% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+
+  {{ encore_entry_script_tags('activity') }}
+{% endblock %}

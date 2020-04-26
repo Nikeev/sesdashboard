@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Projects{% endblock %}
+
+{% block h1 %}
+  <h1 class="h2">Projects</h1>
+{% endblock %}
+
+{% block body %}
+  {% if projects %}
+    <div class="alert alert-light">There is only one project available at the moment.</div>
+    <div class="row">
+      {% for project in projects %}
+        <div class="col-sm-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{ project.name }}</h5>
+              <a href="{{ path('app_project_edit', {'id': project.id}) }}" class="btn btn-primary">Edit & config</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-info">No projects created.</div>
+
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Add new</h5>
+            <a href="{{ path('app_project_add') }}" class="btn btn-primary">Add</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}

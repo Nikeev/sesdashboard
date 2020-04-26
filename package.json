@@ -1,0 +1,27 @@
+{
+    "devDependencies": {
+        "@fortawesome/fontawesome-free": "^5.13.0",
+        "@symfony/webpack-encore": "^0.29.0",
+        "axios": "^0.19.2",
+        "bootstrap": "^4.4.1",
+        "bootstrap-vue": "^2.11.0",
+        "core-js": "^3.0.0",
+        "moment": "^2.24.0",
+        "node-sass": "^4.13.1",
+        "regenerator-runtime": "^0.13.2",
+        "sass-loader": "^7.0.1",
+        "vue": "^2.6.11",
+        "vue-loader": "^15.0.11",
+        "vue-template-compiler": "^2.6.11",
+        "webpack-notifier": "^1.6.0"
+    },
+    "license": "UNLICENSED",
+    "private": true,
+    "scripts": {
+        "dev-server": "encore dev-server",
+        "dev": "encore dev",
+        "watch": "encore dev --watch",
+        "build": "encore production --progress"
+    },
+    "dependencies": {}
+}
