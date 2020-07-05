@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Account settings{% endblock %}
+
+{% block h1 %}
+    <h1 class="h2">Account settings</h1>
+{% endblock %}
+
+{% block body %}
+    {% include 'user/form.html.twig' with {'form': form} %}
+{% endblock %}

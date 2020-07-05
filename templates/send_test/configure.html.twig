@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Send test e-mail{% endblock %}
+
+{% block h1 %}
+  <h1 class="h2">Send test e-mail</h1>
+{% endblock %}
+
+{% block body %}
+  <div class="alert alert-light">
+    <div class="alert alert-danger"><code>MAILER_DSN</code> url is not configured.</div>
+    <p>To be able to send e-mails you need to set "Transport" configuration.
+      There is already installed Amazon SES Transport.
+      To provide SES credentials, open <code>.env.local</code> file and add following line:</p>
+    <div class="alert alert-secondary"><code>MAILER_DSN=ses://ACCESS_KEY:SECRET_KEY@default?region=eu-west-1</code></div>
+    <p>Replace <code>ACCESS_KEY</code>, <code>SECRET_KEY</code> and <code>eu-west-1</code> with your SES settings.</p>
+    <p><a href="{{ path('app_send_test') }}">Refresh page</a>, when it's done.</p>
+    <p>More information about Symfony Mailer:
+      <a href="https://symfony.com/doc/current/mailer.html" target="_blank">https://symfony.com/doc/current/mailer.html</a>
+    </p>
+    <p>More about SES SMTP interface:
+      <a href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-smtp.html" target="_blank">
+        https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-smtp.html
+      </a>
+    </p>
+  </div>
+{% endblock %}

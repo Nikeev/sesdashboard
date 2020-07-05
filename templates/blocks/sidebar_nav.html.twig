@@ -28,14 +28,20 @@
     <ul class="nav flex-column mb-2">
       <li class="nav-item">
         <a class="nav-link {% if currentPath in ['app_project_list', 'app_project_add', 'app_project_edit'] %}active{% endif %}" href="{{ path('app_project_list') }}">
-          <span data-feather="file-text"></span>
+          <i class="fas fa-database"></i>
           Projects
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link {% if currentPath == 'app_send_test' %}active{% endif %}" href="{{ path('app_send_test') }}">
-          <span data-feather="file-text"></span>
+          <i class="far fa-paper-plane"></i>
           Send Test Mail
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if currentPath == 'app_user' %}active{% endif %}" href="{{ path('app_user') }}">
+          <i class="fas fa-user-cog"></i>
+          Account
         </a>
       </li>
     </ul>

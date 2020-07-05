@@ -10,30 +10,30 @@
   {{ form_start(form) }}
 
   <div class="form-row">
-    <div class="col-5">
+    <div class="col-4">
       {{ form_row(form.sendFrom) }}
     </div>
-  </div>
-
-  <div class="form-row">
-    <div class="col-5">
+    <div class="col-4">
       {{ form_row(form.sendTo) }}
     </div>
   </div>
 
   <div class="form-row">
-    <div class="col-5">
+    <div class="col-4">
       {{ form_row(form.subject) }}
+    </div>
+    <div class="col-4">
+      {{ form_row(form.configurationSet, {'label': 'X-SES-CONFIGURATION-SET'}) }}
     </div>
   </div>
 
   <div class="form-row">
-    <div class="col-5">
+    <div class="col-8">
       {{ form_row(form.message) }}
     </div>
   </div>
 
-  <button class="btn btn-primary" type="submit">Send</button>
+  <button class="btn btn-primary" type="submit"><i class="far fa-paper-plane"></i> Send</button>
 
   {{ form_end(form) }}
 {% endblock %}

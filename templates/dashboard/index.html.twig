@@ -8,12 +8,9 @@
 
 {% block body %}
 
-<div class="example-wrapper">
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/application/src/Controller/DashboardController.php'|file_link(0) }}">src/Controller/DashboardController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/application/templates/dashboard/index.html.twig'|file_link(0) }}">templates/dashboard/index.html.twig</a></code></li>
-    </ul>
+<div class="alert alert-secondary">
+    <p>Dashboard will display overall sending statistics. It's in development and will be available in further versions.</p>
+    <p>Use <a href="{{ path('app_activity') }}">Activity</a> to monitor sending logs and events.</p>
 </div>
+
 {% endblock %}

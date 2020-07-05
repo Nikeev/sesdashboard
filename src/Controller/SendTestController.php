@@ -2,9 +2,7 @@
 
 namespace App\Controller;
 
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use App\Form\TestMailType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
@@ -14,21 +12,40 @@ use Symfony\Component\Routing\Annotation\Route;
 class SendTestController extends BaseController
 {
     /**
-     * @Route("/send/test", name="app_send_test")
+     * @Route("/send/test", name="app_send_test", methods="GET")
      */
-    public function index(Request $request, MailerInterface $mailer)
+    public function index()
     {
+        // We don't load MailerInterface here to be sure that MAILER_DSN is configured.
+
+        // Check if MAILER_DSN is configured.
+        // Show configure instructions if not set.
+        if (empty($_ENV['MAILER_DSN'])) {
+            return $this->render('send_test/configure.html.twig');
+        }
+
+        // Fill default form values.
         $data = [
             'sendFrom' => $this->getUser()->getEmail(),
             'sendTo' => $this->getUser()->getEmail(),
+            'configurationSet' => 'Tracking',
+            'subject' => 'SesDashboard test message',
+            'message' => 'This is a test message!',
         ];
 
-        $form = $this->createFormBuilder($data)
-            ->add('sendFrom', EmailType::class)
-            ->add('sendTo', TextType::class)
-            ->add('subject', TextType::class)
-            ->add('message', TextareaType::class)
-            ->getForm();
+        $form = $this->createForm(TestMailType::class, $data);
+
+        return $this->render('send_test/index.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/send/test", name="app_send_test_post", methods="POST")
+     */
+    public function send(Request $request, MailerInterface $mailer)
+    {
+        $form = $this->createForm(TestMailType::class);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -38,15 +55,19 @@ class SendTestController extends BaseController
                 ->subject($form->get('subject')->getData())
                 ->html($form->get('message')->getData());
 
-            $email->getHeaders()->addTextHeader('X-SES-CONFIGURATION-SET', 'Tracking');
+            if ($configurationSet = $form->get('configurationSet')->getData()) {
+                $email->getHeaders()->addTextHeader('X-SES-CONFIGURATION-SET', $configurationSet);
+            }
 
             try {
                 $mailer->send($email);
             } catch (TransportExceptionInterface $e) {
-                $this->addFlash('danger', 'Message was not sent.');
+                $this->addFlash('danger', 'Message was not sent :(');
             }
 
-            $this->addFlash('success', 'Message was sent.');
+            $this->addFlash('success', 'Message was sent!');
+
+            return $this->redirectToRoute('app_send_test');
         }
 
         return $this->render('send_test/index.html.twig', [
