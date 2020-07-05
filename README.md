@@ -16,10 +16,16 @@ OR
 * `docker exec -it sesdashboard-php-fpm /bin/bash`
 * `composer install`
 * `./bin/console doctrine:migrations:migrate`
-* To create user use `app:create-user` command
-* Navigate `127.0.0.1:8083` or `YOUR_SERVER_IP:8083`
+* To create user use `app:create-user --admin` command
+* Navigate `http://127.0.0.1` or `http://YOUR_SERVER_IP`
 
 # Configure SES #
+* Go to Amazon Simple Email Service (SES) console and select Configuration Sets menu.
+* Click `Create Configuration Set` or edit your existing set.
+* Add new SNS Destination, select events to track and create SNS topic.
+* Next, navigate to Amazon Simple Notification Service (SNS).
+* In `Topics` section select topic you created before.
+* Add new subscription with HTTP (or HTTPS protocol if configured) and paste WebHook url from `/project/1/edit` SesDashboard project page. Check Enable raw message delivery. 
 
 # TODO #
 * Create Dashboard statistics

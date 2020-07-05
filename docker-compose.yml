@@ -5,6 +5,7 @@ version: "3.1"
 services:
 
     mysql:
+#      restart: always
       env_file:
         - ./.env.local
       image: mysql:8.0
@@ -13,10 +14,11 @@ services:
       volumes:
         - .:/application
         - sesdashboard-mysql-datavolume:/var/lib/mysql
-      ports:
-        - "8085:3306"
+#      ports:
+#        - "8085:3306"
 
     webserver:
+#      restart: always
       image: nginx:alpine
       container_name: sesdashboard-webserver
       working_dir: /application
@@ -24,9 +26,10 @@ services:
           - .:/application
           - ./phpdocker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
       ports:
-       - "8083:80"
+       - "80:80"
 
     php-fpm:
+#      restart: always
       build: phpdocker/php-fpm
       container_name: sesdashboard-php-fpm
       working_dir: /application
