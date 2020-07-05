@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button type="button" @click="loadData" class="btn btn-secondary btn-sm float-right mb-3">Reload Data</button>
+    <button type="button" @click="loadData" class="btn btn-secondary btn-sm float-right mb-3"><i class="fas fa-sync-alt"></i> Reload Data</button>
 
     <b-table striped hover
              :fields="fields"

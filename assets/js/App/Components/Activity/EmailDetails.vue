@@ -48,6 +48,7 @@
                 size="sm"
                 variant="light"
                 class="float-right">Show details</b-button>
+            <i class="far fa-dot-circle text-primary"></i>
             <span class="text-capitalize lead">{{ emailEvent.event }}</span>
             <small>{{ emailEvent.timestamp }}</small>
           </div>
