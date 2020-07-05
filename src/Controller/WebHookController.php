@@ -11,6 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class WebHookController extends BaseController
 {
@@ -21,7 +22,8 @@ class WebHookController extends BaseController
                           Request $request,
                           EntityManagerInterface $em,
                           EmailRepository $emailRepository,
-                          WebHookProcessor $processor)
+                          WebHookProcessor $processor,
+                          HttpClientInterface $httpClient)
     {
 
         $jsonData = json_decode($request->getContent(), true);
@@ -30,6 +32,19 @@ class WebHookController extends BaseController
             return new Response('Error', Response::HTTP_BAD_REQUEST);
         }
 
+        // Auto subscribe to SNS topic.
+        if (!empty($jsonData['Type']) && $jsonData['Type'] == 'SubscriptionConfirmation') {
+            $response = $httpClient->request(
+                'GET',
+                $jsonData['SubscribeURL']
+            );
+            if ($response->getStatusCode() == Response::HTTP_OK) {
+                return new Response('Ok');
+            }
+            return new Response('Not Ok', Response::HTTP_BAD_REQUEST);
+        }
+
+        // Process mail events.
         if ($jsonData['eventType'] == 'Send') {
             $email = $processor->createEmailFromJson($jsonData);
             $email->setProject($project);
