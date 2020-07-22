@@ -39,6 +39,34 @@
         <p class="card-text"><samp>{{ absolute_url(path('app_webhook', {'token': project.token})) }}</samp></p>
       </div>
     </div>
+
+    <div class="card mt-5">
+      <div class="card-header">
+        <h5>Configure SES</h5>
+      </div>
+      <div class="card-body">
+        <ul>
+          <li>
+            Go to Amazon Simple Email Service (SES) console and select Configuration Sets menu.
+          </li>
+          <li>
+            Click Create Configuration Set or edit your existing set.
+          </li>
+          <li>
+            Add new SNS Destination, select events to track and create SNS topic.
+          </li>
+          <li>
+            Next, navigate to Amazon Simple Notification Service (SNS).
+          </li>
+          <li>
+            At Topics section select topic you created before.
+          </li>
+          <li>
+            Add new subscription with HTTP (or HTTPS protocol if configured) and paste WebHook url from above. Check Enable raw message delivery.
+          </li>
+        </ul>
+      </div>
+    </div>
   {% endif %}
 
 {% endblock %}
