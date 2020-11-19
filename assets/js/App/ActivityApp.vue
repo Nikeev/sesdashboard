@@ -133,6 +133,8 @@
   }
 </script>
 
-<style scoped>
-
+<style>
+  .b-table tbody tr {
+    cursor: pointer;
+  }
 </style>
