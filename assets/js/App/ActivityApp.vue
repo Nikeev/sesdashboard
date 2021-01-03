@@ -1,16 +1,33 @@
 <template>
   <div>
-    <button type="button" @click="loadData" class="btn btn-secondary btn-sm float-right mb-3"><i class="fas fa-sync-alt"></i> Reload Data</button>
+    <app-filter-form
+        @reload="loadData"
+        @search="search = $event"
+        @date-from="dateFrom = $event"
+        @date-to="dateTo = $event"
+    />
 
-    <b-table striped hover
+<!--    <input type="text" class="form-control" v-model="search" placeholder="Search Email or Subject">-->
+
+<!--    <button type="button" @click="loadData" class="btn btn-secondary btn-sm float-right mb-3"><i class="fas fa-sync-alt"></i> Reload Data</button>-->
+
+    <b-table hover show-empty
              :fields="fields"
              :items="rows"
              :busy="isBusy"
              @row-clicked="rowClicked">
+      <template #empty="scope">
+        <div class="text-center lead">No emails to display</div>
+      </template>
+
       <template v-slot:table-busy>
         <div class="text-center text-primary my-2">
           <b-spinner class="align-middle"></b-spinner>
         </div>
+      </template>
+
+      <template v-slot:cell(status)="data">
+        <i class="fas fa-dot-circle" :class="'status-' + data.item.status"></i> <span class="text-capitalize">{{ data.item.status }}</span>
       </template>
 
       <template v-slot:cell(subject)="data">
@@ -30,15 +47,6 @@
         v-model="currentPage"
         :per-page="perPage"></b-pagination>
 
-<!--    <b-modal v-model="showDetails">-->
-<!--      <b-spinner v-if="detailsLoading" class="align-middle"></b-spinner>-->
-<!--      <div v-if="emailDetails">-->
-<!--        <pre>-->
-<!--          {{ emailDetails }}-->
-<!--        </pre>-->
-<!--      </div>-->
-<!--    </b-modal>-->
-
     <app-email-details :show-details="showDetails" :mail-id="selectedId" @modal-closed="showDetails = false"></app-email-details>
 
   </div>
@@ -48,10 +56,12 @@
   import axios from 'axios';
   import moment from 'moment';
   import EmailDetails from "./Components/Activity/EmailDetails";
+  import FilterForm from "./Components/Activity/FilterForm";
 
   export default {
     name: "ActivityApp",
     components: {
+      appFilterForm: FilterForm,
       appEmailDetails: EmailDetails
     },
     data() {
@@ -62,6 +72,9 @@
         emailDetails: null,
         selectedId: null,
         rows: [],
+        search: '',
+        dateFrom: '',
+        dateTo: '',
         fields: [
           {
             key: 'status',
@@ -97,17 +110,18 @@
         axios.get('/activity/list/api', {
           params: {
             page: this.currentPage,
-            limit: this.perPage
+            limit: this.perPage,
+            search: this.search,
+            dateFrom: this.dateFrom,
+            dateTo: this.dateTo
           }
         })
             .then(function (response) {
-              console.log(response);
               _this.rows = response.data.rows;
               _this.totalRows = response.data.totalRows;
               _this.isBusy = false;
             })
             .catch(function (error) {
-              console.log(error);
               _this.isBusy = false;
             })
             .then(function () {
@@ -115,7 +129,6 @@
             });
       },
       rowClicked(record, index) {
-        console.log(record);
         this.showDetails = true;
         this.selectedId = record.id;
         // this.loadDetails(record.id);

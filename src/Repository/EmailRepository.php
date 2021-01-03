@@ -21,14 +21,33 @@ class EmailRepository extends ServiceEntityRepository
     }
 
 
-    public function findByProjectQuery(Project $project)
+    public function findByProjectQuery(Project $project, $filters = [])
     {
-        return $this->createQueryBuilder('e')
+        $qb = $this->createQueryBuilder('e')
             ->andWhere('e.project = :project')
             ->setParameter('project', $project)
             ->orderBy('e.timestamp', 'DESC')
-            ->getQuery()
         ;
+
+        if (!empty($filters['search'])) {
+            $qb
+                ->andWhere('e.destination LIKE :search OR e.subject LIKE :search')
+                ->setParameter('search', '%' . addcslashes($filters['search'], '%_') . '%');
+        }
+
+        if (!empty($filters['dateFrom'])) {
+            $qb
+                ->andWhere('e.timestamp >= :dateFrom')
+                ->setParameter('dateFrom', $filters['dateFrom']);
+        }
+
+        if (!empty($filters['dateTo'])) {
+            $qb
+                ->andWhere('e.timestamp <= :dateTo')
+                ->setParameter('dateTo', $filters['dateTo']);
+        }
+
+        return $qb->getQuery();
     }
 
 

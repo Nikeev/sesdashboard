@@ -2,33 +2,36 @@
   "entrypoints": {
     "app": {
       "js": [
-        "/build/runtime.d94b3b43.js",
-        "/build/1.14903f6c.js",
-        "/build/app.81b64787.js"
+        "http://localhost:8080/build/runtime.js",
+        "http://localhost:8080/build/vendors~activity~app~signin.js",
+        "http://localhost:8080/build/vendors~app.js",
+        "http://localhost:8080/build/app.js"
       ],
       "css": [
-        "/build/1.c7074089.css",
-        "/build/app.0aa15e2d.css"
+        "http://localhost:8080/build/vendors~app.css",
+        "http://localhost:8080/build/app.css"
       ]
     },
     "signin": {
       "js": [
-        "/build/runtime.d94b3b43.js",
-        "/build/signin.0cff363c.js"
+        "http://localhost:8080/build/runtime.js",
+        "http://localhost:8080/build/vendors~activity~app~signin.js",
+        "http://localhost:8080/build/signin.js"
       ],
       "css": [
-        "/build/signin.8f3f1eec.css"
+        "http://localhost:8080/build/signin.css"
       ]
     },
     "activity": {
       "js": [
-        "/build/runtime.d94b3b43.js",
-        "/build/0.f39ae7cf.js",
-        "/build/activity.76c3c733.js"
+        "http://localhost:8080/build/runtime.js",
+        "http://localhost:8080/build/vendors~activity~app~signin.js",
+        "http://localhost:8080/build/vendors~activity.js",
+        "http://localhost:8080/build/activity.js"
       ],
       "css": [
-        "/build/0.62503109.css",
-        "/build/activity.18fc9b5e.css"
+        "http://localhost:8080/build/vendors~activity.css",
+        "http://localhost:8080/build/activity.css"
       ]
     }
   }

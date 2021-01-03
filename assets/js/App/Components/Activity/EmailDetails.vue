@@ -41,13 +41,10 @@
         <li class="list-group-item"
             v-for="emailEvent in emailDetails.emailEvents"
             :key="emailEvent.id"
+            v-b-toggle="'collapse-' + emailEvent.id"
         >
           <div>
-            <b-button
-                v-b-toggle="'collapse-' + emailEvent.id"
-                size="sm"
-                variant="light"
-                class="float-right">Show details</b-button>
+            <i class="fas fa-file-alt float-right small text-muted"></i>
             <i class="far fa-dot-circle text-primary"></i>
             <span class="text-capitalize lead">{{ emailEvent.event }}</span>
             <small>{{ emailEvent.timestamp }}</small>
@@ -81,7 +78,7 @@
 
 <script>
   import axios from "axios";
-  import { BCollapse, BButton, VBToggle } from 'bootstrap-vue'
+  import { BCollapse, BButton, VBToggle } from 'bootstrap-vue';
 
   export default {
     name: "EmailDetails",

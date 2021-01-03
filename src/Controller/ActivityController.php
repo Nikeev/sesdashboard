@@ -4,15 +4,11 @@ namespace App\Controller;
 
 use App\Repository\EmailRepository;
 use App\Repository\ProjectRepository;
-use Doctrine\Common\Annotations\AnnotationReader;
+use App\Utils\ActivitySearchFilters;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
-use Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class ActivityController extends AbstractController
@@ -36,10 +32,11 @@ class ActivityController extends AbstractController
      * @Route("/activity/list/api", name="app_activity_list_api")
      */
     public function listApi(Request $request,
-                        EmailRepository $emailRepository,
-                        ProjectRepository $projectRepository,
-                        PaginatorInterface $paginator,
-                        SerializerInterface $serializer)
+                            EmailRepository $emailRepository,
+                            ProjectRepository $projectRepository,
+                            PaginatorInterface $paginator,
+                            SerializerInterface $serializer,
+                            ActivitySearchFilters $activitySearchFilters)
     {
         $project = $projectRepository->findOneBy([
             'user' => $this->getUser(),
@@ -51,8 +48,16 @@ class ActivityController extends AbstractController
             ]);
         }
 
+        try {
+            $filters = $activitySearchFilters->getFiltersFromRequest($request);
+        } catch (\Exception $e) {
+            return $this->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
         $pagination = $paginator->paginate(
-            $emailRepository->findByProjectQuery($project),
+            $emailRepository->findByProjectQuery($project, $filters),
             $request->query->getInt('page', 1),
             $request->query->getInt('limit', 10)
         );

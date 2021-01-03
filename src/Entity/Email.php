@@ -80,6 +80,7 @@ class Email
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\EmailEvent", mappedBy="email")
+     * @ORM\OrderBy({"timestamp" = "DESC"})
      * @Groups("full")
      */
     private $emailEvents;
