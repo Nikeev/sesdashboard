@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Create new project{% endblock %}
+{% block title %}Edit project{% endblock %}
 
 {% block h1 %}
   <h1 class="h2">
     {% if project.id %}
-      Create new project
+      Edit project <small>(ID: {{ project.id }})</small>
     {% else %}
-      Edit project
+      Create new project
     {% endif %}
   </h1>
 {% endblock %}
