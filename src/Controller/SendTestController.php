@@ -63,6 +63,7 @@ class SendTestController extends BaseController
                 $mailer->send($email);
             } catch (TransportExceptionInterface $e) {
                 $this->addFlash('danger', 'Message was not sent :(');
+                return $this->redirectToRoute('app_send_test');
             }
 
             $this->addFlash('success', 'Message was sent!');

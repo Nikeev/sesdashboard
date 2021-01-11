@@ -18,7 +18,9 @@ class TestMailType extends AbstractType
             ->add('sendTo', TextType::class)
             ->add('subject', TextType::class)
             ->add('message', TextareaType::class)
-            ->add('configurationSet', TextType::class)
+            ->add('configurationSet', TextType::class, [
+                'required' => false,
+            ])
         ;
     }
 
