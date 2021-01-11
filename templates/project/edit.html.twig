@@ -47,10 +47,21 @@
       <div class="card-body">
         <ul>
           <li>
-            Go to Amazon Simple Email Service (SES) console and select Configuration Sets menu.
+            Go to Amazon Simple Email Service (SES) console.
+            There are 2 ways to configure events publishing. <br>
+            First is to create new Configuration Set.
+            It allows you to track opens and clicks but requires you to pass specific email header <code>X-SES-CONFIGURATION-SET</code>.
+            More about headers configuration: <a target="_blank" href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/event-publishing-send-email.html">https://docs.aws.amazon.com/ses/latest/DeveloperGuide/event-publishing-send-email.html</a><br>
+            Second option doesn't require any changes in your existing app, but cannot track clicks and opens.
           </li>
           <li>
-            Click Create Configuration Set or edit your existing set.
+            <strong>First option</strong>: Select Configuration Sets menu.
+            Click <code>Create Configuration Set</code> or edit your existing set.
+            Add new SNS Destination, select events to track and create SNS topic.
+          </li>
+          <li>
+            <strong>Second option</strong>: Under <code>Identity Management</code> select Domain or Email address and open <code>Notifications</code> tab.
+            Click <code>Edit Configuration</code> and create or select SNS Topic for events you wish to track. Enable <code>Include original headers</code>.
           </li>
           <li>
             Add new SNS Destination, select events to track and create SNS topic.
@@ -62,7 +73,8 @@
             At Topics section select topic you created before.
           </li>
           <li>
-            Add new subscription with HTTP (or HTTPS protocol if configured) and paste WebHook url from above. Check Enable raw message delivery.
+            Add new subscription with HTTP (or HTTPS protocol if configured) and paste WebHook url from above.
+            Check Enable raw message delivery.
           </li>
         </ul>
       </div>

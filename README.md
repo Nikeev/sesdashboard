@@ -31,12 +31,19 @@ SesDashboard works as stand-alone app. No existing code needs to be changed.
 
 
 # Configure SES
-* Go to Amazon Simple Email Service (SES) console and select Configuration Sets menu.
-* Click `Create Configuration Set` or edit your existing set.
-* Add new SNS Destination, select events to track and create SNS topic.
+* Go to Amazon Simple Email Service (SES) console.
+  There are 2 ways to configure events publishing. First is to create new Configuration Set.
+  It allows you to track opens and clicks but requires you to pass specific email header `X-SES-CONFIGURATION-SET`. 
+  More about headers configuration: https://docs.aws.amazon.com/ses/latest/DeveloperGuide/event-publishing-send-email.html
+  Second option doesn't require any changes in your existing app, but cannot track clicks and opens.
+* **First option**: Select Configuration Sets menu. Click `Create Configuration Set` or edit your existing set. 
+  Add new SNS Destination, select events to track and create SNS topic.
+* **Second option**: Under `Identity Management` select Domain or Email address and open `Notifications` tab. 
+  Click `Edit Configuration` and create or select SNS Topic for events you wish to track. Enable `Include original headers`.
 * Next, navigate to Amazon Simple Notification Service (SNS).
 * In `Topics` section select topic you created before.
-* Add new subscription with HTTP (or HTTPS protocol if configured) and paste WebHook url from `/project/1/edit` SesDashboard project page. Check Enable raw message delivery. 
+* Add new subscription with HTTP (or HTTPS protocol if configured) and paste WebHook url from `/project/1/edit` SesDashboard project page. 
+  Check `Enable raw message delivery`. 
 
 # Updates
 * Make backup
