@@ -28,7 +28,7 @@ class SendTestController extends BaseController
         $data = [
             'sendFrom' => $this->getUser()->getEmail(),
             'sendTo' => $this->getUser()->getEmail(),
-            'configurationSet' => 'Tracking',
+            'configurationSet' => '',
             'subject' => 'SesDashboard test message',
             'message' => 'This is a test message!',
         ];
