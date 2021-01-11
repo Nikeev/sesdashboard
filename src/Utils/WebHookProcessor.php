@@ -9,22 +9,24 @@ use App\Entity\EmailEvent;
 
 class WebHookProcessor
 {
-    public function createEmailFromJson($jsonData)
+    public function createEmailFromJson($jsonData): Email
     {
         return (new Email())
             ->setMessageId($jsonData['mail']['messageId'])
             ->setDestination($jsonData['mail']['destination'])
             ->setSource($jsonData['mail']['source'])
-            ->setSubject($jsonData['mail']['commonHeaders']['subject'])
+            ->setSubject($jsonData['mail']['commonHeaders']['subject'] ?? 'N/A')
             ->setTimestamp(new \DateTime($jsonData['mail']['timestamp']))
             ->setStatus(Email::EMAIL_STATUS_SENT);
     }
 
-    public function createEmailEventFromJson(Email $email, $jsonData, $event)
+    public function createEmailEventFromJson(Email $email, $jsonData, $event): EmailEvent
     {
+        $type = self::getEventType($jsonData);
+
         $emailEvent = (new EmailEvent($email))
-            ->setEvent($jsonData['eventType'])
-            ->setEventData($jsonData[$event]);
+            ->setEvent($type)
+            ->setEventData($jsonData[$event] ?? []);
 
         if (!empty($jsonData[$event]['timestamp'])) {
             $emailEvent->setTimestamp(new \DateTime($jsonData[$event]['timestamp']));
@@ -33,9 +35,15 @@ class WebHookProcessor
         return $emailEvent;
     }
 
-    public function createEvent(Email $email, $jsonData)
+    public function createEvent(Email $email, $jsonData): EmailEvent
     {
-        switch ($jsonData['eventType']) {
+        $type = self::getEventType($jsonData);
+
+        switch ($type) {
+            case 'Send':
+                $emailEvent = $this->createEmailEventFromJson($email, $jsonData, 'send');
+                break;
+
             case 'Delivery':
                 $email->setStatus(Email::EMAIL_STATUS_DELIVERED);
                 $emailEvent = $this->createEmailEventFromJson($email, $jsonData, 'delivery');
@@ -76,5 +84,23 @@ class WebHookProcessor
         }
 
         return $emailEvent;
+    }
+
+    /**
+     * @param array $jsonData
+     * @return mixed
+     * @throws \Exception
+     */
+    public static function getEventType(array $jsonData)
+    {
+        if (!empty($jsonData['eventType'])) {
+            return $jsonData['eventType'];
+        }
+
+        else if (!empty($jsonData['notificationType'])) {
+            return $jsonData['notificationType'];
+        }
+
+        throw new \Exception('Unexpected value');
     }
 }

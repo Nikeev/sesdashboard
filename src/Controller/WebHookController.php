@@ -16,7 +16,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 class WebHookController extends BaseController
 {
     /**
-     * @Route("/webhook/{token}", name="app_webhook")
+     * @Route("/webhook/{token}", name="app_webhook", methods={"POST"})
      */
     public function index(Project $project,
                           Request $request,
@@ -44,33 +44,27 @@ class WebHookController extends BaseController
             return new Response('Not Ok', Response::HTTP_BAD_REQUEST);
         }
 
-        // Process mail events.
-        if ($jsonData['eventType'] == 'Send') {
+        // Process mail.
+        // Try to find mail.
+        $email = $emailRepository->findOneBy([
+            'project' => $project,
+            'messageId' => $jsonData['mail']['messageId'],
+        ]);
+
+        // Create new mail.
+        if (!$email) {
             $email = $processor->createEmailFromJson($jsonData);
             $email->setProject($project);
-
             $em->persist($email);
-            $emailEvent = $processor->createEmailEventFromJson($email, $jsonData, 'send');
-            $em->persist($emailEvent);
         }
-        else {
-            $email = $emailRepository->findOneBy([
-                'project' => $project,
-                'messageId' => $jsonData['mail']['messageId'],
-            ]);
 
-            if ($jsonData === false) {
-                return new Response('Not Found', Response::HTTP_NOT_FOUND);
-            }
-
-            try {
-                $emailEvent = $processor->createEvent($email, $jsonData);
-            } catch (\Exception $e) {
-                return new Response($e->getMessage(), Response::HTTP_BAD_REQUEST);
-            }
-
-            $em->persist($emailEvent);
+        try {
+            $emailEvent = $processor->createEvent($email, $jsonData);
+        } catch (\Exception $e) {
+            return new Response($e->getMessage(), Response::HTTP_BAD_REQUEST);
         }
+
+        $em->persist($emailEvent);
 
         $em->flush();
 
