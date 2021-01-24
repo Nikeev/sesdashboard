@@ -12,7 +12,7 @@
     <p>To be able to send e-mails you need to set "Transport" configuration.
       There is already installed Amazon SES Transport.
       To provide SES credentials, open <code>.env.local</code> file and add following line:</p>
-    <div class="alert alert-secondary"><code>MAILER_DSN=ses://ACCESS_KEY:SECRET_KEY@default?region=eu-west-1</code></div>
+    <div class="alert alert-secondary"><code>MAILER_DSN=ses+smtp://ACCESS_KEY:SECRET_KEY@default?region=eu-west-1</code></div>
     <p>Replace <code>ACCESS_KEY</code>, <code>SECRET_KEY</code> and <code>eu-west-1</code> with your SES settings.</p>
     <p><a href="{{ path('app_send_test') }}">Refresh page</a>, when it's done.</p>
     <p>More information about Symfony Mailer:
