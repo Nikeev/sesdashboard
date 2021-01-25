@@ -41,42 +41,42 @@ class WebHookProcessor
 
         switch ($type) {
             case 'Send':
-                $emailEvent = $this->createEmailEventFromJson($email, $jsonData, 'send');
+                $emailEvent = $this->createEmailEventFromJson($email, $jsonData, EmailEvent::EVENT_SEND);
                 break;
 
             case 'Delivery':
                 $email->setStatus(Email::EMAIL_STATUS_DELIVERED);
-                $emailEvent = $this->createEmailEventFromJson($email, $jsonData, 'delivery');
+                $emailEvent = $this->createEmailEventFromJson($email, $jsonData, EmailEvent::EVENT_DELIVERY);
                 break;
 
             case 'Reject':
                 $email->setStatus(Email::EMAIL_STATUS_NOT_DELIVERED);
-                $emailEvent = $this->createEmailEventFromJson($email, $jsonData, 'reject');
+                $emailEvent = $this->createEmailEventFromJson($email, $jsonData, EmailEvent::EVENT_REJECT);
                 break;
 
             case 'Bounce':
                 $email->setStatus(Email::EMAIL_STATUS_NOT_DELIVERED);
-                $emailEvent = $this->createEmailEventFromJson($email, $jsonData, 'bounce');
+                $emailEvent = $this->createEmailEventFromJson($email, $jsonData, EmailEvent::EVENT_BOUNCE);
                 break;
 
             case 'Complaint':
                 $email->setStatus(Email::EMAIL_STATUS_DELIVERED);
-                $emailEvent = $this->createEmailEventFromJson($email, $jsonData, 'complaint');
+                $emailEvent = $this->createEmailEventFromJson($email, $jsonData, EmailEvent::EVENT_COMPLAINT);
                 break;
 
             case 'Rendering Failure':
                 $email->setStatus(Email::EMAIL_STATUS_NOT_DELIVERED);
-                $emailEvent = $this->createEmailEventFromJson($email, $jsonData, 'failure');
+                $emailEvent = $this->createEmailEventFromJson($email, $jsonData, EmailEvent::EVENT_FAILURE);
                 break;
 
             case 'Open':
                 $email->increaseOpens();
-                $emailEvent = $this->createEmailEventFromJson($email, $jsonData, 'open');
+                $emailEvent = $this->createEmailEventFromJson($email, $jsonData, EmailEvent::EVENT_OPEN);
                 break;
 
             case 'Click':
                 $email->increaseClicks();
-                $emailEvent = $this->createEmailEventFromJson($email, $jsonData, 'click');
+                $emailEvent = $this->createEmailEventFromJson($email, $jsonData, EmailEvent::EVENT_CLICK);
                 break;
 
             default:
