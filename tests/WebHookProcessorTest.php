@@ -3,6 +3,7 @@
 namespace App\Tests;
 
 use App\Entity\Email;
+use App\Entity\EmailEvent;
 use App\Utils\WebHookProcessor;
 use PHPUnit\Framework\TestCase;
 
@@ -53,5 +54,24 @@ class WebHookProcessorTest extends TestCase
         WebHookProcessor::getEventType([
             'oops' => 'Send'
         ]);
+    }
+
+    public function testCreateEvent()
+    {
+        $email = new Email();
+
+        $webHookProcessor = new WebHookProcessor();
+
+        $date = new \DateTime();
+
+        $emailEvent = $webHookProcessor->createEvent($email, [
+            'eventType' => 'Send',
+            'send' => [
+                'timestamp' => $date->format('Y-m-d\TH:i:s.u\Z'),
+            ]
+        ]);
+
+        $this->assertEquals(EmailEvent::EVENT_SEND, $emailEvent->getEvent(), 'Event type is wrong');
+        $this->assertEquals($emailEvent->getTimestamp(), $date, 'Email event date parsed wrong');
     }
 }
