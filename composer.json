@@ -34,10 +34,12 @@
         "doctrine/doctrine-migrations-bundle": "2.*"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
         "symfony/profiler-pack": "*",
-        "symfony/test-pack": "*"
+        "symfony/test-pack": "*",
+        "zenstruck/foundry": "^1.7"
     },
     "config": {
         "preferred-install": {
