@@ -63,6 +63,12 @@ SesDashboard works as stand-alone app. No existing code needs to be changed.
   $ ./bin/console cache:warmup
   ```
 
+# Commands
+* Clear old emails data:
+  ```console
+  $ ./bin/console app:emails:cleanup --days=7
+  ```
+
 # TODO
 * Create Dashboard statistics
 * Improve documentation
