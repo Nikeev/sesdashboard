@@ -30,10 +30,8 @@ final class EmailEventFactory extends ModelFactory
     protected function getDefaults(): array
     {
         return [
-            'event' => self::faker()->boolean(70) ?
+            'event' => self::faker()->boolean(82) ?
                 self::faker()->randomElement([
-                    EmailEvent::EVENT_SEND,
-                    EmailEvent::EVENT_DELIVERY,
                     EmailEvent::EVENT_OPEN,
                     EmailEvent::EVENT_CLICK,
                 ]) :

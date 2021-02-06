@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\EmailEvent;
 use App\Factory\EmailEventFactory;
 use App\Factory\EmailFactory;
 use App\Factory\ProjectFactory;
@@ -20,18 +21,40 @@ class AppFixtures extends Fixture
             'user' => $user,
         ]);
 
-        EmailFactory::createMany(10, [
-            'project' => $project,
-        ]);
+        for ($i = 0; $i < 2; $i++) {
+            EmailFactory::createMany(100, [
+                'project' => $project,
+            ]);
 
-        $manager->flush();
+            $manager->flush();
 
-        EmailEventFactory::createMany(70,
-            function() {
-                return ['email' => EmailFactory::random()];
-            }
-        );
+            EmailEventFactory::createMany(100,
+                function () {
+                    return [
+                        'email' => EmailFactory::random(),
+                        'event' => EmailEvent::EVENT_SEND,
+                    ];
+                }
+            );
 
-        $manager->flush();
+            EmailEventFactory::createMany(82,
+                function () {
+                    return [
+                        'email' => EmailFactory::random(),
+                        'event' => EmailEvent::EVENT_DELIVERY,
+                    ];
+                }
+            );
+
+            $manager->flush();
+
+            EmailEventFactory::createMany(700,
+                function () {
+                    return ['email' => EmailFactory::random()];
+                }
+            );
+
+            $manager->flush();
+        }
     }
 }

@@ -8,9 +8,23 @@
 
 {% block body %}
 
-<div class="alert alert-secondary">
-    <p>Dashboard will display overall sending statistics. It's in development and will be available in further versions.</p>
-    <p>Use <a href="{{ path('app_activity') }}">Activity</a> to monitor sending logs and events.</p>
-</div>
+  <div id="app"></div>
 
+{% endblock %}
+
+{% block stylesheets %}
+  {{ parent() }}
+
+  {{ encore_entry_link_tags('dashboard') }}
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+
+  <script type="application/javascript">
+    window.dashboardEndpoint = '{{ path('app_dashboard_api') }}';
+    window.dashboardProjectId = '{{ project ? project.id : "" }}';
+  </script>
+
+  {{ encore_entry_script_tags('dashboard') }}
 {% endblock %}

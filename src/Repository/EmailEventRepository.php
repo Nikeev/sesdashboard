@@ -19,32 +19,34 @@ class EmailEventRepository extends ServiceEntityRepository
         parent::__construct($registry, EmailEvent::class);
     }
 
-    // /**
-    //  * @return EmailEvent[] Returns an array of EmailEvent objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function countEmailEventsByDateRange(\DateTimeImmutable $dateFrom, \DateTimeImmutable $dateTo)
     {
         return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('e.id', 'ASC')
-            ->setMaxResults(10)
+            ->select('e.event, COUNT(e.id) as count')
+            ->where('e.timestamp >= :dateFrom AND e.timestamp <= :dateTo')
+            ->setParameters([
+                'dateFrom' => $dateFrom,
+                'dateTo' => $dateTo,
+            ])
+            ->groupBy('e.event')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?EmailEvent
+    public function countDailyEmailEventsByDateRange(\DateTimeImmutable $dateFrom, \DateTimeImmutable $dateTo)
     {
         return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
+            ->select("e.event, COUNT(e.id) as count, DATE_FORMAT(e.timestamp, '%Y-%m-%d') as daygroup")
+            ->where('e.timestamp >= :dateFrom AND e.timestamp <= :dateTo')
+            ->setParameters([
+                'dateFrom' => $dateFrom,
+                'dateTo' => $dateTo,
+            ])
+            ->groupBy("daygroup")
+            ->addGroupBy('e.event')
+            ->orderBy('daygroup', 'ASC')
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult();
     }
-    */
+
 }

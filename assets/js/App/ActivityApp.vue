@@ -7,10 +7,6 @@
         @date-to="dateTo = $event"
     />
 
-<!--    <input type="text" class="form-control" v-model="search" placeholder="Search Email or Subject">-->
-
-<!--    <button type="button" @click="loadData" class="btn btn-secondary btn-sm float-right mb-3"><i class="fas fa-sync-alt"></i> Reload Data</button>-->
-
     <b-table hover show-empty
              :fields="fields"
              :items="rows"
