@@ -130,6 +130,11 @@
         // this.loadDetails(record.id);
       }
     },
+    watch: {
+      currentPage() {
+        this.loadData();
+      }
+    },
     filters: {
       formatDate: function (value) {
         if (!value) return '';
