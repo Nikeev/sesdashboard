@@ -31,6 +31,14 @@ class WebHookProcessor
         if (!empty($jsonData[$event]['timestamp'])) {
             $emailEvent->setTimestamp(new \DateTime($jsonData[$event]['timestamp']));
         }
+        // Some events don't have an event timestamp. Try to extract date from email object.
+        else if (!empty($jsonData['mail']['timestamp'])) {
+            $emailEvent->setTimestamp(new \DateTime($jsonData['mail']['timestamp']));
+        }
+        // Use current timestamp otherwise.
+        else {
+            $emailEvent->setTimestamp(new \DateTime());
+        }
 
         return $emailEvent;
     }
