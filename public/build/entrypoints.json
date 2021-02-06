@@ -23,7 +23,7 @@
     "dashboard": {
       "js": [
         "/build/runtime.d94b3b43.js",
-        "/build/0.98d0a8ba.js",
+        "/build/0.adcc9085.js",
         "/build/2.396fe72e.js",
         "/build/dashboard.c4ef4542.js"
       ],
@@ -34,7 +34,7 @@
     "activity": {
       "js": [
         "/build/runtime.d94b3b43.js",
-        "/build/0.98d0a8ba.js",
+        "/build/0.adcc9085.js",
         "/build/1.a1931dcb.js",
         "/build/activity.824a0fbe.js"
       ],
