@@ -47,6 +47,24 @@
       <div class="card-body">
         <ul>
           <li>
+            <strong>New AWS SES Console v2:</strong><br>
+            Create a new Configuration Set, if none created yet. Go to <code>Configuration sets</code> menu
+            item under <code>Configuration</code> section and click <code>Create set</code>.
+            Fill <code>Configuration set name</code> and create set. At Event configuration page
+            click <code>Event destinations</code> and <code>Add destination</code>. Chose <code>Event types</code>
+            you wish to track and click <code>Next</code>.
+            Under <code>Destination options</code> choose <code>Amazon SNS</code>, fill destination
+            <code>Name</code>. Next create new <code>SNS topic</code> or use existing.
+          </li>
+          <li>
+            Under <code>Verified identities</code> choose identity you wish to track.
+            Go to <code>Configuration step</code> tab and click <code>Edit</code>.
+            Check <code>Assign a default configuration set</code>, select <code>Default configuration set</code>
+            you recently created and save changes.
+            Go to Amazon Simple Notification Service (SNS) paragraph below.
+          </li>
+          <li>
+            <strong>AWS SES Console v1:</strong><br>
             Go to Amazon Simple Email Service (SES) console.
             There are 2 ways to configure events publishing. <br>
             First is to create new Configuration Set.
@@ -67,7 +85,7 @@
             Add new SNS Destination, select events to track and create SNS topic.
           </li>
           <li>
-            Next, navigate to Amazon Simple Notification Service (SNS).
+            Next, navigate to <strong>Amazon Simple Notification Service (SNS)</strong>.
           </li>
           <li>
             At Topics section select topic you created before.
