@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Installation &#8212; SesDashboard v1.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Configuration" href="configuration.html" />
+    <link rel="prev" title="SesDashboard Documentation - Analytics UI for Amazon Simple Email Service." href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="installation">
+<span id="index-0"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>There are several ways to install app.</p>
+<ul class="simple">
+<li><p>Docker installation</p></li>
+<li><p>Regular installation</p></li>
+</ul>
+<div class="section" id="docker-installation">
+<h2>Docker installation<a class="headerlink" href="#docker-installation" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Copy <code class="docutils literal notranslate"><span class="pre">.env</span></code> file to <code class="docutils literal notranslate"><span class="pre">.env.local</span></code></p></li>
+<li><p>Fill database parameters in <code class="docutils literal notranslate"><span class="pre">.env.local</span></code> with your MySQL credentials</p></li>
+<li><p>Run</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ docker-compose up -d
+$ docker exec -it sesdashboard-php-fpm composer install
+$ docker exec -it sesdashboard-php-fpm ./bin/console doctrine:migrations:migrate -n
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>To create Admin user run</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ docker exec -it sesdashboard-php-fpm ./bin/console app:create-user --admin
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Go to <a class="reference external" href="http://your-ip/login">http://your-ip/login</a> or <a class="reference external" href="http://localhost/login">http://localhost/login</a></p></li>
+</ul>
+</div>
+<div class="section" id="regular-installation">
+<h2>Regular installation<a class="headerlink" href="#regular-installation" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Download an app (download zip or git clone) to your web directory so your webserver should use /public/index.php</p></li>
+<li><p>Copy <code class="docutils literal notranslate"><span class="pre">.env</span></code> file to <code class="docutils literal notranslate"><span class="pre">.env.local</span></code></p></li>
+<li><p>Fill database parameters in <code class="docutils literal notranslate"><span class="pre">.env.local</span></code> with your MySQL credentials</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ composer install
+$ ./bin/console doctrine:migrations:migrate -n
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>To create Admin user run</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./bin/console app:create-user --admin
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>(Optionally) If your server webroot is not /public directory you could create symlink to it. For example, if your server configured for /public_html directory, run</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ln -s ~/sesdashboard/public ~/sesdashboard/public_html
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Go to <a class="reference external" href="http://your-ip/login">http://your-ip/login</a> or <a class="reference external" href="http://localhost/login">http://localhost/login</a></p></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">SesDashboard</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#docker-installation">Docker installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#regular-installation">Regular installation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="upgrades.html">Upgrades</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">Commands</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">SesDashboard Documentation - Analytics UI for Amazon Simple Email Service.</a></li>
+      <li>Next: <a href="configuration.html" title="next chapter">Configuration</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Nikeev.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/install.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
