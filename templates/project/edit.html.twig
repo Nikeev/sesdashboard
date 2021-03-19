@@ -42,59 +42,13 @@
 
     <div class="card mt-5">
       <div class="card-header">
-        <h5>Configure SES</h5>
+        <h5>Configure AWS Simple Email Service</h5>
       </div>
       <div class="card-body">
-        <ul>
-          <li>
-            <strong>New AWS SES Console v2:</strong><br>
-            Create a new Configuration Set, if none created yet. Go to <code>Configuration sets</code> menu
-            item under <code>Configuration</code> section and click <code>Create set</code>.
-            Fill <code>Configuration set name</code> and create set. At Event configuration page
-            click <code>Event destinations</code> and <code>Add destination</code>. Chose <code>Event types</code>
-            you wish to track and click <code>Next</code>.
-            Under <code>Destination options</code> choose <code>Amazon SNS</code>, fill destination
-            <code>Name</code>. Next create new <code>SNS topic</code> or use existing.
-          </li>
-          <li>
-            Under <code>Verified identities</code> choose identity you wish to track.
-            Go to <code>Configuration step</code> tab and click <code>Edit</code>.
-            Check <code>Assign a default configuration set</code>, select <code>Default configuration set</code>
-            you recently created and save changes.
-            Go to Amazon Simple Notification Service (SNS) paragraph below.
-          </li>
-          <li>
-            <strong>AWS SES Console v1:</strong><br>
-            Go to Amazon Simple Email Service (SES) console.
-            There are 2 ways to configure events publishing. <br>
-            First is to create new Configuration Set.
-            It allows you to track opens and clicks but requires you to pass specific email header <code>X-SES-CONFIGURATION-SET</code>.
-            More about headers configuration: <a target="_blank" href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/event-publishing-send-email.html">https://docs.aws.amazon.com/ses/latest/DeveloperGuide/event-publishing-send-email.html</a><br>
-            Second option doesn't require any changes in your existing app, but cannot track clicks and opens.
-          </li>
-          <li>
-            <strong>First option</strong>: Select Configuration Sets menu.
-            Click <code>Create Configuration Set</code> or edit your existing set.
-            Add new SNS Destination, select events to track and create SNS topic.
-          </li>
-          <li>
-            <strong>Second option</strong>: Under <code>Identity Management</code> select Domain or Email address and open <code>Notifications</code> tab.
-            Click <code>Edit Configuration</code> and create or select SNS Topic for events you wish to track. Enable <code>Include original headers</code>.
-          </li>
-          <li>
-            Add new SNS Destination, select events to track and create SNS topic.
-          </li>
-          <li>
-            Next, navigate to <strong>Amazon Simple Notification Service (SNS)</strong>.
-          </li>
-          <li>
-            At Topics section select topic you created before.
-          </li>
-          <li>
-            Add new subscription with HTTP (or HTTPS protocol if configured) and paste WebHook url from above.
-            Check Enable raw message delivery.
-          </li>
-        </ul>
+        <p class="card-text">
+          Follow Configuration instructions:
+          <a href="https://sesdashboard.readthedocs.io/en/latest/configuration.html" target="_blank">https://sesdashboard.readthedocs.io/en/latest/configuration.html</a>
+        </p>
       </div>
     </div>
   {% endif %}
