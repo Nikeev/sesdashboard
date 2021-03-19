@@ -24,6 +24,8 @@ With activity tracking tool you could check which email was successfully deliver
 
 SesDashboard works as stand-alone app. No existing code needs to be changed.
 
+GitHub Project page: https://github.com/Nikeev/sesdashboard
+
 .. image:: /images/sesdashboard-login.png
 
 .. image:: /images/sesdashboard-dashboard.png

@@ -10,7 +10,7 @@ There are several ways to install app.
 
 Docker installation
 -------------------
-
+* Git clone ``https://github.com/Nikeev/sesdashboard.git``
 * Copy ``.env`` file to ``.env.local``
 * Fill database parameters in ``.env.local`` with your MySQL credentials
 * Run
