@@ -32,6 +32,8 @@ GitHub Project page: https://github.com/Nikeev/sesdashboard
 
 .. image:: /images/sesdashboard-activity.png
 
+.. image:: /images/sesdashboard-email-details.png
+
 Indices and tables
 ==================
 
