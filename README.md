@@ -5,83 +5,11 @@ With activity tracking tool you could check which email was successfully deliver
 
 SesDashboard works as stand-alone app. No existing code needs to be changed.
 
-# Install App
+# Documentation
+Documentation available at https://sesdashboard.readthedocs.io/
 
-### With Docker
-* Copy _.env_ file to _.env.local_
-* Fill database parameters in _.env.local_ with your MySQL credentials
-* Run 
-  ```console
-  $ docker-compose up -d
-  $ docker exec -it sesdashboard-php-fpm composer install
-  $ docker exec -it sesdashboard-php-fpm ./bin/console doctrine:migrations:migrate -n
-  ```
-* To create Admin user run `docker exec -it sesdashboard-php-fpm ./bin/console app:create-user --admin` command
-
-### Regular installation
-* Download an app (download zip or git clone) to your web directory so your webserver should use _/public/index.php_
-* Copy _.env_ file to _.env.local_
-* Fill database parameters in _.env.local_ with your MySQL credentials
-* `composer install`
-* `./bin/console doctrine:migrations:migrate -n`
-* To create Admin user run `app:create-user --admin` command
-
-### Done!
-* Navigate to `http://127.0.0.1` or `http://YOUR_SERVER_IP` and log in with user credentials
-
-
-# Configure SES
-### New AWS SES Console v2:
-* If none created yet, create a new Configuration Set. Go to `Configuration sets` menu item under `Configuration` section 
-  and click `Create set`. Fill `Configuration set name` and create set. At Event configuration page 
-  click `Event destinations` and `Add destination`. Chose `Event types` you wish to track and click `Next`.
-  Under `Destination options` choose `Amazon SNS`, fill destination `Name`. Next create new `SNS topic` or use existing.
-* Under `Verified identities` choose identity you wish to track. Go to `Configuration step` tab and click `Edit`.
-  Check `Assign a default configuration set`, select `Default configuration set` you recently created and save changes.
-  Go to SNS Configuration step paragraph below.
-
-### AWS SES Console v1:
-* Go to Amazon Simple Email Service (SES) console.
-  There are 2 ways to configure events publishing. First is to create new Configuration Set.
-  It allows you to track opens and clicks but requires you to pass specific email header `X-SES-CONFIGURATION-SET`. 
-  More about headers configuration: https://docs.aws.amazon.com/ses/latest/DeveloperGuide/event-publishing-send-email.html
-  Second option doesn't require any changes in your existing app, but cannot track clicks and opens.
-* **First option**: Select Configuration Sets menu. Click `Create Configuration Set` or edit your existing set. 
-  Add new SNS Destination, select events to track and create SNS topic.
-* **Second option**: Under `Identity Management` select Domain or Email address and open `Notifications` tab. 
-  Click `Edit Configuration` and create or select SNS Topic for events you wish to track. Enable `Include original headers`.
-  
-### SNS Configuration step.
-* Next, navigate to Amazon Simple Notification Service (SNS).
-* In `Topics` section select topic you created before.
-* Add new subscription with HTTP (or HTTPS protocol if configured) and paste WebHook url from `/project/1/edit` SesDashboard project page. 
-  Check `Enable raw message delivery`.
-
-# Updates
-* Make backup
-* Git pull or download new version
-* If your app uses Docker run:<br />
-  ```console
-  $ docker exec -it sesdashboard-php-fpm composer install
-  $ docker exec -it sesdashboard-php-fpm ./bin/console doctrine:migrations:migrate -n
-  $ docker exec -it sesdashboard-php-fpm ./bin/console cache:clear
-  $ docker exec -it sesdashboard-php-fpm ./bin/console cache:warmup
-  ```
-* For regular setup run:<br />
-  ```console
-  $ composer install
-  $ ./bin/console doctrine:migrations:migrate -n
-  $ ./bin/console cache:clear
-  $ ./bin/console cache:warmup
-  ```
-
-# Commands
-* Clear old emails data:
-  ```console
-  $ ./bin/console app:emails:cleanup --days=7
-  ```
-
-# TODO
-* Create Dashboard statistics
-* Improve documentation
-* Create Analytics reports
+### Screenshots
+![SesDashboard Login Screen](docs/images/sesdashboard-login.png)
+![SesDashboard Dashboard Screen](docs/images/sesdashboard-dashboard.png)
+![SesDashboard Activity Screen](docs/images/sesdashboard-activity.png)
+![SesDashboard Email Details](docs/images/sesdashboard-email-details.png)
