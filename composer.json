@@ -1,6 +1,22 @@
 {
     "type": "project",
-    "license": "proprietary",
+    "name": "nikeev/sesdashboard",
+    "description": "SesDashboard is an Analytics UI for Amazon Simple Email Service.",
+    "license": "MIT",
+    "keywords": ["aws", "dashboard", "analytics", "amazon", "email", "transaction", "ses"],
+    "homepage": "https://github.com/Nikeev/sesdashboard",
+    "authors": [
+        {
+            "name": "Anton Nikeev",
+            "email": "a@nikeev.com",
+            "homepage": "https://nikeev.com",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/Nikeev/sesdashboard/issues",
+        "docs": "https://sesdashboard.readthedocs.io/"
+    },
     "require": {
         "php": "^7.2.5",
         "ext-ctype": "*",
