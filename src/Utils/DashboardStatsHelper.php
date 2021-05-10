@@ -58,9 +58,9 @@ class DashboardStatsHelper
      * @param \DateTimeImmutable $dateTo
      * @return array
      */
-    public function getChartData(\DateTimeImmutable $dateFrom, \DateTimeImmutable $dateTo): array
+    public function getChartData(\DateTimeImmutable $dateFrom, \DateTimeImmutable $dateTo, string $tzOffset): array
     {
-        $countersByDate = $this->repository->countDailyEmailEventsByDateRange($dateFrom, $dateTo);
+        $countersByDate = $this->repository->countDailyEmailEventsByDateRange($dateFrom, $dateTo, TimezoneOffsetFormatter::format($tzOffset));
 
         $labels = [];
         $datasets = [];

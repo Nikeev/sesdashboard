@@ -7109,10 +7109,10 @@ vue-template-es2015-compiler@^1.9.0:
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
-vue2-daterange-picker@^0.6.3:
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/vue2-daterange-picker/-/vue2-daterange-picker-0.6.3.tgz#1fdd852d77c5660dbd2efb0b2face37d304c6700"
-  integrity sha512-AT0KKr6qBXbELBIHxp51trjwaGiwSYbdJ5OytYsyi2oXcJ7MUKvsoAbCBgy24W3vIzSJojCdWqtuWiMuMr0c4g==
+vue2-daterange-picker@^0.6.4:
+  version "0.6.5"
+  resolved "https://registry.yarnpkg.com/vue2-daterange-picker/-/vue2-daterange-picker-0.6.5.tgz#bd02141f88a9b86c12a638ac566e13d229f3b522"
+  integrity sha512-8gXvbqMF8LpfArlCaeG/pveoM/Q+DQzfG4gt++NZqLabs859ch7zbuvjvvcMvchGp9yOIsBqw+jwpL/v5kr31A==
   dependencies:
     vue "^2.6.10"
 

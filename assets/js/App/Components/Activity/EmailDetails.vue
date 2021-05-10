@@ -30,7 +30,7 @@
             </tr>
             <tr>
               <th>DateTime</th>
-              <td>{{ emailDetails.timestamp }}</td>
+              <td>{{ emailDetails.timestamp | formatDate }} ({{ emailDetails.timestamp }} UTC)</td>
             </tr>
           </tbody>
         </table>
@@ -47,7 +47,7 @@
             <i class="fas fa-file-alt float-right small text-muted"></i>
             <i class="far fa-dot-circle text-primary"></i>
             <span class="text-capitalize lead">{{ emailEvent.event }}</span>
-            <small>{{ emailEvent.timestamp }}</small>
+            <small>{{ emailEvent.timestamp | formatDate }} ({{ emailEvent.timestamp }} UTC)</small>
           </div>
 
           <b-collapse :id="'collapse-' + emailEvent.id" class="bg-light p-4">
@@ -79,6 +79,7 @@
 <script>
   import axios from "axios";
   import { BCollapse, BButton, VBToggle } from 'bootstrap-vue';
+  import moment from "moment";
 
   export default {
     name: "EmailDetails",
@@ -120,6 +121,12 @@
             .then(function () {
               _this.detailsLoading = false;
             });
+      }
+    },
+    filters: {
+      formatDate: function (value) {
+        if (!value) return '';
+        return moment(value).locale(window.navigator.language).format('LLL');
       }
     },
     watch: {

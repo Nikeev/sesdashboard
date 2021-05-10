@@ -1,23 +1,13 @@
 <template>
-  <b-row>
+  <b-row class="mb-3">
     <b-col>
       <b-form-input v-model="search" @input="$emit('search', $event)" placeholder="Search Email or Subject"></b-form-input>
     </b-col>
     <b-col>
-      <b-form-datepicker
-          v-model="dateFrom"
-          @input="$emit('date-from', $event)"
-          placeholder="Date from"
-          :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
-          class="mb-2"></b-form-datepicker>
+      <app-date-range-picker v-model="dateRange" />
     </b-col>
     <b-col>
-      <b-form-datepicker
-          v-model="dateTo"
-          @input="$emit('date-to', $event)"
-          placeholder="Date to"
-          :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
-          class="mb-2"></b-form-datepicker>
+      <b-form-select v-model="eventSelected" :options="eventOptions"></b-form-select>
     </b-col>
     <b-col>
       <b-button variant="outline-primary" @click="$emit('reload')"><i class="fas fa-search"></i> Search</b-button>
@@ -27,34 +17,62 @@
 </template>
 
 <script>
-import { BFormInput, BRow, BCol, BButton, BFormDatepicker } from 'bootstrap-vue'
+import { BFormInput, BRow, BCol, BButton, BFormSelect  } from 'bootstrap-vue'
+import AppDateRangePicker from "../Common/AppDateRangePicker";
+import moment from "moment";
 
 export default {
   name: "FilterForm",
   components: {
+    AppDateRangePicker,
     BRow,
     BCol,
     BButton,
     BFormInput,
-    BFormDatepicker
+    BFormSelect
   },
   data() {
     return {
       search: '',
-      dateFrom: '',
-      dateTo: ''
+      dateRange: {
+        startDate: moment().locale(window.navigator.language).startOf('week').utc().toDate(),
+        endDate: moment().locale(window.navigator.language).endOf('week').utc().toDate()
+      },
+      eventSelected: null,
+      eventOptions: [
+        { value: null, text: 'Select an event' },
+        { value: 'send', text: 'Send' },
+        { value: 'delivery', text: 'Delivery'},
+        { value: 'reject', text: 'Reject'},
+        { value: 'bounce', text: 'Bounce'},
+        { value: 'complaint', text: 'Complaint'},
+        { value: 'failure', text: 'Failure'},
+        { value: 'open', text: 'Open'},
+        { value: 'click', text: 'Click'},
+      ]
     }
   },
   methods: {
     clear() {
       this.search = '';
-      this.dateFrom = '';
-      this.dateTo = '';
       this.$emit('search', '');
       this.$emit('date-from', '');
       this.$emit('date-to', '');
       this.$emit('reload');
     }
+  },
+  watch: {
+    dateRange() {
+      this.$emit('date-from', this.dateRange.startDate);
+      this.$emit('date-to', this.dateRange.endDate);
+    },
+    eventSelected() {
+      this.$emit('event-selected', this.eventSelected);
+    }
+  },
+  mounted() {
+    this.$emit('date-from', this.dateRange.startDate);
+    this.$emit('date-to', this.dateRange.endDate);
   }
 }
 </script>

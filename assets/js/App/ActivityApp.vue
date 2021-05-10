@@ -5,6 +5,7 @@
         @search="search = $event"
         @date-from="dateFrom = $event"
         @date-to="dateTo = $event"
+        @event-selected="eventSelected = $event"
     />
 
     <b-table hover show-empty
@@ -32,7 +33,7 @@
       </template>
 
       <template v-slot:cell(timestamp)="data">
-        {{ data.item.timestamp | formatDate }}
+        <span :title="data.item.timestamp"> {{ data.item.timestamp | formatDate }}</span>
       </template>
 
     </b-table>
@@ -71,6 +72,7 @@
         search: '',
         dateFrom: '',
         dateTo: '',
+        eventSelected: null,
         fields: [
           {
             key: 'status',
@@ -108,8 +110,9 @@
             page: this.currentPage,
             limit: this.perPage,
             search: this.search,
-            dateFrom: this.dateFrom,
-            dateTo: this.dateTo
+            dateFrom: moment(this.dateFrom).startOf('day').utc().toDate(),
+            dateTo: moment(this.dateTo).endOf('day').utc().toDate(),
+            eventType: this.eventSelected
           }
         })
             .then(function (response) {
@@ -138,7 +141,7 @@
     filters: {
       formatDate: function (value) {
         if (!value) return '';
-        return moment(value).format();
+        return moment(value).locale(window.navigator.language).format('LLL');
       }
     },
     mounted() {
