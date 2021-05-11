@@ -47,8 +47,6 @@ class DashboardController extends BaseController
             return $this->json(['error' => 'No project found!'], Response::HTTP_NOT_FOUND);
         }
 
-        // TODO Consider the user's timezone
-
         try {
             $dateFrom = new \DateTimeImmutable($request->get('dateFrom'));
             $dateTo = new \DateTimeImmutable($request->get('dateTo'));
@@ -58,7 +56,7 @@ class DashboardController extends BaseController
 
         return $this->json([
             'counters' => $dashboardStatsHelper->getCounters($dateFrom, $dateTo),
-            'chartData' => $dashboardStatsHelper->getChartData($dateFrom, $dateTo),
+            'chartData' => $dashboardStatsHelper->getChartData($dateFrom, $dateTo, $request->get('tzOffset')),
         ]);
     }
 }

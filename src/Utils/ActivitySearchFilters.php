@@ -14,9 +14,11 @@ class ActivitySearchFilters
 
         $filters['search'] = $request->get('search');
 
+        $filters['eventType'] = $request->get('eventType');
+
         if ($dateFrom = $request->get('dateFrom')) {
             try {
-                $filters['dateFrom']  = (new \DateTime($dateFrom))->setTime(0, 0, 0);
+                $filters['dateFrom']  = new \DateTime($dateFrom);
             } catch (\Exception $e) {
                 throw new \Exception('Wrong dateFrom parameter!');
             }
@@ -24,7 +26,7 @@ class ActivitySearchFilters
 
         if ($dateTo = $request->get('dateTo')) {
             try {
-                $filters['dateTo']  = (new \DateTime($dateTo))->setTime(23, 59, 59);
+                $filters['dateTo']  = new \DateTime($dateTo);
             } catch (\Exception $e) {
                 throw new \Exception('Wrong dateTo parameter!');
             }

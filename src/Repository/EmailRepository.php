@@ -47,6 +47,14 @@ class EmailRepository extends ServiceEntityRepository
                 ->setParameter('dateTo', $filters['dateTo']);
         }
 
+        if (!empty($filters['eventType'])) {
+            $qb
+                ->leftJoin('e.emailEvents', 'ee')
+                ->andWhere('ee.event = :eventType')
+                ->setParameter('eventType', $filters['eventType'])
+                ->addGroupBy('e.id');
+        }
+
         return $qb->getQuery();
     }
 

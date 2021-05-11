@@ -1,19 +1,8 @@
 <template>
   <div v-if="projectId">
 
-    <div class="mb-4">
-      <date-range-picker
-          ref="picker"
-          :opens="'right'"
-          v-model="dateRange"
-          :autoApply="true"
-          @update="loadData"
-          :ranges="ranges"
-      >
-        <template v-slot:input="picker" style="min-width: 350px;">
-          <i class="fa fa-calendar-alt"></i> {{ picker.startDate | date }} - {{ picker.endDate | date }}
-        </template>
-      </date-range-picker>
+    <div class="mb-4 w-25">
+      <app-date-range-picker v-model="dateRange" />
     </div>
 
     <counters-cards :counters="counters" :is-loading="isLoading" />
@@ -29,51 +18,23 @@
 import axios from 'axios';
 import moment from 'moment';
 import LineChart from './Components/Dashboard/LineChart';
-import DateRangePicker from 'vue2-daterange-picker';
-import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
 import CountersCards from "./CountersCards";
+import AppDateRangePicker from "./Components/Common/AppDateRangePicker";
 
 export default {
   name: "DashboardApp",
   components: {
+    AppDateRangePicker,
     CountersCards,
-    LineChart,
-    DateRangePicker
+    LineChart
   },
   data() {
     return {
       isLoading: true,
       projectId: window.dashboardProjectId,
       dateRange: {
-        startDate: moment().startOf('week').toDate(),
-        endDate: moment().endOf('week').toDate()
-      },
-      // TODO It seems that range start date doesn't update current start date.
-      ranges: {
-        'Today': [
-          moment().startOf('day').toDate(),
-          moment().endOf('day').toDate()
-        ],
-        'Yesterday': [
-          moment().startOf('day').subtract(1, 'days').toDate(),
-          moment().endOf('day').subtract(1, 'days').toDate()
-        ],
-        'This week': [
-          moment().startOf('week').toDate(),
-          moment().endOf('week').toDate()
-        ],
-        'Last week': [
-          moment().subtract(1, 'weeks').startOf('week').toDate(),
-          moment().subtract(1, 'weeks').endOf('week').toDate()
-        ],
-        'This month': [
-          moment().startOf('month').toDate(),
-          moment().endOf('month').toDate()
-        ],
-        'Last month': [
-          moment().subtract(1, 'months').startOf('month').toDate(),
-          moment().subtract(1, 'months').endOf('month').toDate()
-        ],
+        startDate: moment().locale(window.navigator.language).startOf('week').utc().toDate(),
+        endDate: moment().locale(window.navigator.language).endOf('week').utc().toDate()
       },
       datacollection: {},
       counters: {},
@@ -113,8 +74,9 @@ export default {
       axios.get(window.dashboardEndpoint, {
         params: {
           projectId: parseInt(this.projectId),
-          dateFrom: moment(this.dateRange.startDate).utc().startOf('day').toDate(),
-          dateTo: moment(this.dateRange.endDate).utc().endOf('day').toDate()
+          dateFrom:  moment(this.dateRange.startDate).startOf('day').utc().toDate(),
+          dateTo: moment(this.dateRange.endDate).endOf('day').utc().toDate(),
+          tzOffset: moment().utcOffset()
         }
       })
           .then(response => {
@@ -159,6 +121,16 @@ export default {
       };
     }
   },
+  computed: {
+    firstDayOfWeek() {
+      return moment.localeData(window.navigator.language).firstDayOfWeek();
+    }
+  },
+  watch: {
+    dateRange() {
+      this.loadData();
+    }
+  },
   mounted() {
     if (this.projectId) {
       this.loadData();
@@ -166,4 +138,3 @@ export default {
   }
 }
 </script>
-

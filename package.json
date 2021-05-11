@@ -16,7 +16,7 @@
         "webpack-notifier": "^1.6.0",
         "vue-chartjs": "^3.5.1",
         "chart.js": "^2.9.4",
-        "vue2-daterange-picker": "^0.6.3"
+        "vue2-daterange-picker": "^0.6.5"
     },
     "license": "UNLICENSED",
     "private": true,

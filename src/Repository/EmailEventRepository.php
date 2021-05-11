@@ -23,7 +23,7 @@ class EmailEventRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('e')
             ->select('e.event, COUNT(e.id) as count')
-            ->where('e.timestamp >= :dateFrom AND e.timestamp <= :dateTo')
+            ->where("e.timestamp >= :dateFrom AND e.timestamp <= :dateTo")
             ->setParameters([
                 'dateFrom' => $dateFrom,
                 'dateTo' => $dateTo,
@@ -33,14 +33,15 @@ class EmailEventRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function countDailyEmailEventsByDateRange(\DateTimeImmutable $dateFrom, \DateTimeImmutable $dateTo)
+    public function countDailyEmailEventsByDateRange(\DateTimeImmutable $dateFrom, \DateTimeImmutable $dateTo, $tzOffset = '+00:00')
     {
         return $this->createQueryBuilder('e')
-            ->select("e.event, COUNT(e.id) as count, DATE_FORMAT(e.timestamp, '%Y-%m-%d') as daygroup")
-            ->where('e.timestamp >= :dateFrom AND e.timestamp <= :dateTo')
+            ->select("e.event, COUNT(e.id) as count, DATE_FORMAT(CONVERT_TZ(e.timestamp, '+00:00', :tzOffset), '%Y-%m-%d') as daygroup")
+            ->where("e.timestamp >= :dateFrom AND e.timestamp <= :dateTo")
             ->setParameters([
                 'dateFrom' => $dateFrom,
                 'dateTo' => $dateTo,
+                'tzOffset' => $tzOffset,
             ])
             ->groupBy("daygroup")
             ->addGroupBy('e.event')
