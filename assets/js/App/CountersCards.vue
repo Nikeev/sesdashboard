@@ -60,10 +60,10 @@ export default {
   },
   computed: {
     deliveredProc() {
-      return this.counters.sent ? (this.counters.delivered / this.sent * 100) : 0;
+      return this.counters.sent ? (this.counters.delivered / this.counters.sent * 100) : 0;
     },
     notDeliveredProc() {
-      return this.counters.sent ? (this.counters.notDelivered / this.sent * 100) : 0;
+      return this.counters.sent ? (this.counters.notDelivered / this.counters.sent * 100) : 0;
     }
   },
   filters: {
