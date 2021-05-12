@@ -141,7 +141,7 @@
     filters: {
       formatDate: function (value) {
         if (!value) return '';
-        return moment(value).locale(window.navigator.language).format('LLL');
+        return moment(value).locale(window.navigator.language).local().format('LLL');
       }
     },
     mounted() {
