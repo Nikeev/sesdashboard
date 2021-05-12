@@ -23,9 +23,9 @@
     "dashboard": {
       "js": [
         "/build/runtime.d94b3b43.js",
-        "/build/0.ebb4680c.js",
-        "/build/2.ab3f0618.js",
-        "/build/dashboard.07733fcb.js"
+        "/build/0.adcc9085.js",
+        "/build/2.396fe72e.js",
+        "/build/dashboard.01d7c96b.js"
       ],
       "css": [
         "/build/0.a52c964c.css",
@@ -35,9 +35,9 @@
     "activity": {
       "js": [
         "/build/runtime.d94b3b43.js",
-        "/build/0.ebb4680c.js",
-        "/build/1.0548995d.js",
-        "/build/activity.c53e49b2.js"
+        "/build/0.adcc9085.js",
+        "/build/1.a1931dcb.js",
+        "/build/activity.6a3500fe.js"
       ],
       "css": [
         "/build/0.a52c964c.css",
