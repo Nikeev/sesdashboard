@@ -5,8 +5,14 @@ Installation
 
 There are several ways to install app.
 
+- AWS Marketplace
 - Docker installation
 - Regular installation
+
+AWS Marketplace
+---------------
+
+There is an AWS Marketplace prebuild app: https://aws.amazon.com/marketplace/pp/Nikeev-SesDashboard/B08DQ5CY6T
 
 Docker installation
 -------------------
