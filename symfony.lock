@@ -1,4 +1,10 @@
 {
+    "async-aws/core": {
+        "version": "1.9.2"
+    },
+    "async-aws/ses": {
+        "version": "1.4.0"
+    },
     "beberlei/doctrineextensions": {
         "version": "v1.3.0"
     },
@@ -28,6 +34,9 @@
     },
     "doctrine/dbal": {
         "version": "v2.10.1"
+    },
+    "doctrine/deprecations": {
+        "version": "v0.5.3"
     },
     "doctrine/doctrine-bundle": {
         "version": "2.0",
