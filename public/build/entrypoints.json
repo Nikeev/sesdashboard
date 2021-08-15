@@ -2,47 +2,44 @@
   "entrypoints": {
     "app": {
       "js": [
-        "/build/runtime.d94b3b43.js",
-        "/build/3.dff1592e.js",
-        "/build/app.2f6ff34e.js"
+        "/build/runtime.c02cd289.js",
+        "/build/app.6961ad59.js"
       ],
       "css": [
-        "/build/3.6de384d8.css",
-        "/build/app.dbc5db3d.css"
+        "/build/112.069aa3e8.css",
+        "/build/app.17058709.css"
       ]
     },
     "signin": {
       "js": [
-        "/build/runtime.d94b3b43.js",
-        "/build/signin.a1ebb7c5.js"
+        "/build/runtime.c02cd289.js",
+        "/build/signin.7ec0060b.js"
       ],
       "css": [
-        "/build/signin.e124b76d.css"
+        "/build/signin.156a781c.css"
       ]
     },
     "dashboard": {
       "js": [
-        "/build/runtime.d94b3b43.js",
-        "/build/0.ebb4680c.js",
-        "/build/2.ab3f0618.js",
-        "/build/dashboard.3035671b.js"
+        "/build/runtime.c02cd289.js",
+        "/build/408.acf03694.js",
+        "/build/764.d71adba6.js",
+        "/build/dashboard.9e3ae92d.js"
       ],
       "css": [
-        "/build/0.a52c964c.css",
-        "/build/dashboard.0657d7c9.css"
+        "/build/dashboard.be63f20e.css"
       ]
     },
     "activity": {
       "js": [
-        "/build/runtime.d94b3b43.js",
-        "/build/0.ebb4680c.js",
-        "/build/1.0548995d.js",
-        "/build/activity.707d5315.js"
+        "/build/runtime.c02cd289.js",
+        "/build/408.acf03694.js",
+        "/build/458.0a0e526f.js",
+        "/build/activity.5cca0051.js"
       ],
       "css": [
-        "/build/0.a52c964c.css",
-        "/build/1.0f03efb1.css",
-        "/build/activity.244fb59d.css"
+        "/build/458.20e0bbee.css",
+        "/build/activity.24b4e7ad.css"
       ]
     }
   }
