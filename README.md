@@ -5,8 +5,6 @@ With activity tracking tool you could check which email was successfully deliver
 
 SesDashboard is a free self-hosted solution which works as stand-alone app. No existing code needs to be changed.
 
-Don't want to manage own SesDashboard server? Try out SesDashboard Cloud version: https://sesdashboard.com/#cloud
-
 # Documentation
 Documentation available at https://sesdashboard.readthedocs.io/
 
