@@ -7,7 +7,7 @@
       ],
       "css": [
         "/build/112.069aa3e8.css",
-        "/build/app.17058709.css"
+        "/build/app.a497be0d.css"
       ]
     },
     "signin": {
@@ -22,23 +22,23 @@
     "dashboard": {
       "js": [
         "/build/runtime.c02cd289.js",
-        "/build/408.acf03694.js",
-        "/build/764.d71adba6.js",
-        "/build/dashboard.9e3ae92d.js"
+        "/build/996.b5eb9331.js",
+        "/build/764.4d874e99.js",
+        "/build/dashboard.c9c190c0.js"
       ],
       "css": [
-        "/build/dashboard.be63f20e.css"
+        "/build/dashboard.91a0784a.css"
       ]
     },
     "activity": {
       "js": [
         "/build/runtime.c02cd289.js",
-        "/build/408.acf03694.js",
-        "/build/458.0a0e526f.js",
-        "/build/activity.5cca0051.js"
+        "/build/996.b5eb9331.js",
+        "/build/458.0cebac2a.js",
+        "/build/activity.d251a79b.js"
       ],
       "css": [
-        "/build/458.20e0bbee.css",
+        "/build/458.89d0ddd2.css",
         "/build/activity.24b4e7ad.css"
       ]
     }
