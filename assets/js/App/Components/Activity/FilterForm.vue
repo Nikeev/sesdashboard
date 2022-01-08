@@ -11,19 +11,28 @@
     </b-col>
     <b-col>
       <b-button variant="outline-primary" @click="$emit('reload')"><i class="fas fa-search"></i> Search</b-button>
+
+      <app-export-btn
+          :start-date="dateRange.startDate"
+          :end-date="dateRange.endDate"
+          :search="search"
+          :event-selected="eventSelected" />
+
       <b-button v-b-tooltip.hover title="Clear filters" variant="outline-secondary" @click="clear"><i class="fas fa-times"></i></b-button>
     </b-col>
   </b-row>
 </template>
 
 <script>
-import { BFormInput, BRow, BCol, BButton, BFormSelect  } from 'bootstrap-vue'
+import {BButton, BCol, BFormInput, BFormSelect, BRow} from 'bootstrap-vue'
 import AppDateRangePicker from "../Common/AppDateRangePicker";
 import moment from "moment";
+import AppExportBtn from "./ExportBtn";
 
 export default {
   name: "FilterForm",
   components: {
+    AppExportBtn,
     AppDateRangePicker,
     BRow,
     BCol,
@@ -49,7 +58,8 @@ export default {
         { value: 'failure', text: 'Failure'},
         { value: 'open', text: 'Open'},
         { value: 'click', text: 'Click'},
-      ]
+      ],
+      exportBaseUrl: window.APP_EXPORT_URL
     }
   },
   methods: {
@@ -77,6 +87,3 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>

@@ -21,5 +21,9 @@
 {% block javascripts %}
   {{ parent() }}
 
+  <script>
+    window.APP_EXPORT_URL = '{{ path('app_activity_export') }}';
+  </script>
+
   {{ encore_entry_script_tags('activity') }}
 {% endblock %}

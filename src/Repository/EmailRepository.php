@@ -49,25 +49,13 @@ class EmailRepository extends ServiceEntityRepository
 
         if (!empty($filters['eventType'])) {
             $qb
+                ->distinct()
                 ->leftJoin('e.emailEvents', 'ee')
                 ->andWhere('ee.event = :eventType')
-                ->setParameter('eventType', $filters['eventType'])
-                ->addGroupBy('e.id');
+                ->setParameter('eventType', $filters['eventType']);
         }
 
         return $qb->getQuery();
     }
 
-
-    /*
-    public function findOneBySomeField($value): ?Email
-    {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

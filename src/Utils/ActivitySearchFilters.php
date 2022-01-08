@@ -12,9 +12,13 @@ class ActivitySearchFilters
     {
         $filters = [];
 
-        $filters['search'] = $request->get('search');
+        if ($request->get('search')) {
+            $filters['search'] = $request->get('search');
+        }
 
-        $filters['eventType'] = $request->get('eventType');
+        if ($request->get('eventType')) {
+            $filters['eventType'] = $request->get('eventType');
+        }
 
         if ($dateFrom = $request->get('dateFrom')) {
             try {

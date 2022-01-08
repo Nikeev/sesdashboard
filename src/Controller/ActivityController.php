@@ -2,12 +2,21 @@
 
 namespace App\Controller;
 
+use App\Entity\Email;
 use App\Repository\EmailRepository;
 use App\Repository\ProjectRepository;
+use App\Utils\ActivityExport\Report;
+use App\Utils\ActivityExport\WriterFormatFactory;
 use App\Utils\ActivitySearchFilters;
+use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\HeaderUtils;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -78,5 +87,71 @@ class ActivityController extends AbstractController
         // TODO Permissions
         $email = $emailRepository->find($request->get('id'));
         return $this->json($serializer->normalize($email, 'array', ['groups' => 'full']));
+    }
+
+    /**
+     * @Route("/activity/export", name="app_activity_export")
+     */
+    public function export(Request $request,
+                           Report $report,
+                           ProjectRepository $projectRepository,
+                           ActivitySearchFilters $activitySearchFilters,
+                           WriterFormatFactory $writerFormatFactory): Response
+    {
+        $project = $projectRepository->findOneBy([
+            'user' => $this->getUser(),
+        ]);
+
+        if (!$project) {
+            throw $this->createNotFoundException();
+        }
+
+        try {
+            $filters = $activitySearchFilters->getFiltersFromRequest($request);
+        } catch (\Exception $e) {
+            return $this->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        $report = $report->report($project, $filters);
+
+        try {
+            $writer = $writerFormatFactory->get($request->get('format'));
+        } catch (\Exception $e) {
+            return new Response($e->getMessage(), Response::HTTP_BAD_REQUEST);
+        }
+
+        $response = new StreamedResponse(static function () use ($writer, $report): void {
+            $writer->openToFile('php://output');
+
+            $writer->addRow(WriterEntityFactory::createRowFromArray([
+                'Status',
+                'Subject',
+                'Destination',
+                'Date UTC',
+                'Opens',
+                'Clicks',
+            ]));
+
+            foreach ($report as $row) {
+                $writer->addRow(WriterEntityFactory::createRowFromArray($row));
+            }
+
+            $writer->close();
+        });
+
+        // TODO Refactor
+        if ($request->get('format') == 'csv') {
+            $disposition = HeaderUtils::makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, 'activity_report.csv');
+            $response->headers->set('Content-Type', 'text/csv');
+        }
+        else {
+            $disposition = HeaderUtils::makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, 'activity_report.xlsx');
+            $response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        }
+        $response->headers->set('Content-Disposition', $disposition);
+
+        return $response;
     }
 }
