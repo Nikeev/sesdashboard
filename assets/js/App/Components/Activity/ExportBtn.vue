@@ -10,6 +10,7 @@
 
 <script>
 import {BDropdown, BDropdownItem} from "bootstrap-vue";
+import moment from "moment";
 
 export default {
   name: 'app-export-btn',
@@ -26,8 +27,8 @@ export default {
   computed: {
     exportUrl() {
       const params = {
-        dateFrom: this.startDate.toISOString(),
-        dateTo: this.endDate.toISOString()
+        dateFrom: moment(this.startDate).startOf('day').utc().toISOString(),
+        dateTo: moment(this.endDate).endOf('day').utc().toISOString()
       };
 
       if (this.search.length) {
