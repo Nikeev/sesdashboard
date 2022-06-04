@@ -5,7 +5,7 @@ version: "3.1"
 services:
 
     mysql:
-      restart: always
+      restart: unless-stopped
       env_file:
         - ./.env.local
       image: mysql:8.0
@@ -18,7 +18,7 @@ services:
 #        - "8085:3306"
 
     webserver:
-      restart: always
+      restart: unless-stopped
       image: nginx:alpine
       container_name: sesdashboard-webserver
       working_dir: /application
@@ -29,7 +29,7 @@ services:
        - "80:80"
 
     php-fpm:
-      restart: always
+      restart: unless-stopped
       build: phpdocker/php-fpm
       container_name: sesdashboard-php-fpm
       working_dir: /application
