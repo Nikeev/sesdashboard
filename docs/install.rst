@@ -7,7 +7,7 @@ There are several ways to install app.
 
 - AWS Marketplace
 - Docker installation
-- Regular installation
+- Shared hosting installation
 
 AWS Marketplace
 ---------------
@@ -16,27 +16,20 @@ There is an AWS Marketplace prebuild app: https://aws.amazon.com/marketplace/pp/
 
 Docker installation
 -------------------
+* Make sure you have Docker, Docker-compose, Git, Makefile installed
 * Git clone ``https://github.com/Nikeev/sesdashboard.git``
-* Copy ``.env`` file to ``.env.local``
-* Fill database parameters in ``.env.local`` with your MySQL credentials
 * Run
 
 ::
 
-$ docker-compose up -d
-$ docker exec -it sesdashboard-php-fpm composer install
-$ docker exec -it sesdashboard-php-fpm ./bin/console doctrine:migrations:migrate -n
+$ make init
 
-* To create Admin user run
-
-::
-
-$ docker exec -it sesdashboard-php-fpm ./bin/console app:create-user --admin
+* After Docker and App init completed you will be asked to create admin user
 
 * Go to http://your-ip/login or http://localhost/login
 
-Regular installation
---------------------
+Shared hosting installation
+---------------------------
 
 * Download an app (download zip or git clone) to your web directory so your webserver should use /public/index.php
 * Copy ``.env`` file to ``.env.local``
