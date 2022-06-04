@@ -13,12 +13,9 @@ To install new version follow these steps:
 
 ::
 
-$ docker exec -it sesdashboard-php-fpm composer install
-$ docker exec -it sesdashboard-php-fpm ./bin/console doctrine:migrations:migrate -n
-$ docker exec -it sesdashboard-php-fpm ./bin/console cache:clear
-$ docker exec -it sesdashboard-php-fpm ./bin/console cache:warmup
+$ make upgrade
 
-* For regular setup run:
+* For non docker setup run:
 
 ::
 

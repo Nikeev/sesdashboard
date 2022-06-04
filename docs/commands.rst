@@ -16,3 +16,5 @@ Create admin user
 ::
 
 $ ./bin/console app:create-user --admin
+OR
+$ make create-admin
