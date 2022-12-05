@@ -9,6 +9,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EmailRepository")
+ * @ORM\Table(indexes={@ORM\Index(columns={"project_id", "message_id"})})
  */
 class Email
 {
