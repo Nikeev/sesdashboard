@@ -1,10 +1,11 @@
-FROM phpdockerio/php:7.4-fpm
+FROM phpdockerio/php:8.1-fpm
 WORKDIR "/application"
 
-# Fix debconf warnings upon build
-ARG DEBIAN_FRONTEND=noninteractive
-
-# Install selected extensions and other stuff
-RUN apt-get update \
-    && apt-get -y --no-install-recommends install  php7.4-mysql php7.4-gd php7.4-intl php7.4-yaml \
-    && apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
+RUN apt-get update; \
+    apt-get -y --no-install-recommends install \
+        php8.1-gd \ 
+        php8.1-intl \ 
+        php8.1-mysql \ 
+        php8.1-yaml; \
+    apt-get clean; \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
