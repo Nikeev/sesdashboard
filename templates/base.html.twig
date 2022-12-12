@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="h-100">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -17,7 +17,7 @@
     {{ encore_entry_link_tags('app') }}
   {% endblock %}
 </head>
-<body>
+<body class="h-100">
 <nav class="navbar navbar-dark fixed-top bg-colored flex-md-nowrap p-0 shadow">
   <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/">SesDashboard</a>
   <ul class="navbar-nav px-3">
@@ -27,11 +27,11 @@
   </ul>
 </nav>
 
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid h-100">
+  <div class="row h-100">
     {% include('blocks/sidebar_nav.html.twig') %}
 
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 h-100 d-flex flex-column">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         {% block h1 %}{% endblock %}
       </div>
@@ -45,6 +45,10 @@
       {% endfor %}
 
       {% block body %}{% endblock %}
+
+      <footer class="footer mt-auto py-3 text-muted">
+        © {{ 'now'|date('Y') }} <a href="https://sesdashboard.com/" target="_blank" class="text-muted text-decoration-underline">SesDashboard App</a>
+      </footer>
     </main>
   </div>
 </div>
