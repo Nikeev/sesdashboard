@@ -1,5 +1,5 @@
 # Executables (local)
-DOCKER_COMP = docker-compose
+DOCKER_COMP = docker compose
 
 # Docker containers
 PHP_CONT = $(DOCKER_COMP) exec php-fpm
