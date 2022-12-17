@@ -18,7 +18,7 @@
         "docs": "https://sesdashboard.readthedocs.io/"
     },
     "require": {
-        "php": "^7.4.1",
+        "php": "^7.4.1|^8.0",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "beberlei/doctrineextensions": "^1.3",
