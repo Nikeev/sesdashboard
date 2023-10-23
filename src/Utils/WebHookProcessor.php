@@ -9,13 +9,15 @@ use App\Entity\EmailEvent;
 
 class WebHookProcessor
 {
+    private const EMAIL_SUBJECT_NA = 'N/A';
+
     public function createEmailFromJson($jsonData): Email
     {
         return (new Email())
             ->setMessageId($jsonData['mail']['messageId'])
             ->setDestination($jsonData['mail']['destination'])
             ->setSource($jsonData['mail']['source'])
-            ->setSubject($jsonData['mail']['commonHeaders']['subject'] ?? 'N/A')
+            ->setSubject($jsonData['mail']['commonHeaders']['subject'] ?? self::EMAIL_SUBJECT_NA)
             ->setTimestamp(new \DateTime($jsonData['mail']['timestamp']))
             ->setStatus(Email::EMAIL_STATUS_SENT);
     }
@@ -46,6 +48,9 @@ class WebHookProcessor
     public function createEvent(Email $email, $jsonData): EmailEvent
     {
         $type = self::getEventType($jsonData);
+
+        // Try to set Email Subject if empty
+        $this->setEmailSubject($email, $jsonData);
 
         switch ($type) {
             case 'Send':
@@ -110,5 +115,12 @@ class WebHookProcessor
         }
 
         throw new \Exception('Unexpected value');
+    }
+
+    private function setEmailSubject(Email $email, array $jsonData): void
+    {
+        if ($email->getSubject() === null || $email->getSubject() === self::EMAIL_SUBJECT_NA) {
+            $email->setSubject($jsonData['mail']['commonHeaders']['subject'] ?? self::EMAIL_SUBJECT_NA);
+        }
     }
 }
