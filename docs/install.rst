@@ -31,7 +31,14 @@ $ make init
 Shared hosting installation
 ---------------------------
 
-* Download an app (download zip or git clone) to your web directory so your webserver should use /public/index.php
+**Prerequisites:**
+
+Requires [PHP Composer](https://getcomposer.org/). _([Composer uses more resources than Docker](https://github.com/Nikeev/sesdashboard/issues/2#issuecomment-2021967743))_
+
+
+**Installation:**
+
+* Download an app _([download zip](https://github.com/Nikeev/sesdashboard/releases) or git clone)_ to your web directory so your webserver should use /public/index.php _([example of folder structure](https://github.com/Nikeev/sesdashboard/issues/2#issuecomment-2021417798))_
 * Copy ``.env`` file to ``.env.local``
 * Fill database parameters in ``.env.local`` with your MySQL credentials
 
