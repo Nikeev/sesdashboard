@@ -17,14 +17,16 @@ There is an AWS Marketplace prebuild app: https://aws.amazon.com/marketplace/pp/
 Docker installation
 -------------------
 * Make sure you have Docker, Docker-compose, Git, Makefile installed
-* Git clone ``https://github.com/Nikeev/sesdashboard.git``
+* ``git clone https://github.com/Nikeev/sesdashboard.git``
+* Copy ``.env`` file to ``.env.local``
+* Fill database parameters in ``.env.local`` with your MySQL credentials
 * Run
 
 ::
 
 $ make init
 
-* After Docker and App init completed you will be asked to create admin user
+* After Docker and App init completed you will be asked to create admin user. The username must contain only lowercase latin characters and underscores.
 
 * Go to http://your-ip/login or http://localhost/login
 
