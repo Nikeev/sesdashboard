@@ -17,7 +17,7 @@ There is an AWS Marketplace prebuild app: https://aws.amazon.com/marketplace/pp/
 Docker installation
 -------------------
 * Make sure you have Docker, Docker-compose, Git, Makefile installed
-* Git clone ``https://github.com/Nikeev/sesdashboard.git``
+* ``git clone https://github.com/Nikeev/sesdashboard.git``
 * Run
 
 ::
