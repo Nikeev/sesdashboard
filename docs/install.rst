@@ -17,23 +17,28 @@ There is an AWS Marketplace prebuild app: https://aws.amazon.com/marketplace/pp/
 Docker installation
 -------------------
 * Make sure you have Docker, Docker-compose, Git, Makefile installed
-* Git clone ``https://github.com/Nikeev/sesdashboard.git``
+* ``git clone https://github.com/Nikeev/sesdashboard.git``
+* Copy ``.env`` file to ``.env.local``
+* Fill database parameters in ``.env.local`` with your MySQL credentials
 * Run
 
 ::
 
 $ make init
 
-* After Docker and App init completed you will be asked to create admin user
+* After Docker and App init completed you will be asked to create admin user. The username must contain only lowercase latin characters and underscores.
 
 * Go to http://your-ip/login or http://localhost/login
 
-Shared hosting installation
+Shared hosting or vhost installation
 ---------------------------
 
 * Download an app (download zip or git clone) to your web directory so your webserver should use /public/index.php
+* Rename or remove the ``/public/.htaccess`` file if you don't use Apache.
+* Check the [example nginx  config](https://github.com/Nikeev/sesdashboard/issues/70#issuecomment-2028008350) if you're using nginx.
 * Copy ``.env`` file to ``.env.local``
-* Fill database parameters in ``.env.local`` with your MySQL credentials
+* Fill database parameters in ``.env.local`` with your MySQL credentials. [Make sure your serverVersion is correct](https://github.com/Nikeev/sesdashboard/issues/70#issuecomment-2027965022).
+* [Create MySQL database and user, and grant privilages](https://github.com/Nikeev/sesdashboard/issues/70#issuecomment-2027989022)
 
 ::
 
