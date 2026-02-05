@@ -13,3 +13,11 @@ Documentation available at https://sesdashboard.readthedocs.io/
 ![SesDashboard Dashboard Screen](docs/images/sesdashboard-dashboard.png)
 ![SesDashboard Activity Screen](docs/images/sesdashboard-activity.png)
 ![SesDashboard Email Details](docs/images/sesdashboard-email-details.png)
+
+
+# Docker Configuration
+
+```bash
+cp env.docker.example .env.docker
+docker-compose --env-file .env.docker up -d
+```
